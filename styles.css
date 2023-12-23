@@ -1,0 +1,58 @@
+
+/* ///////////////////////////////////// */
+/*////////////// HEADER /////////////////*/
+/* ///////////////////////////////////// */
+
+header {
+    background: radial-gradient(circle,  #263694, #1d062c);
+    color: white;
+}
+
+h1 {
+    text-align: right;
+    margin-right: 25%;
+    padding-top: 0.4%;
+    padding-bottom: 0.4%;
+}
+
+/*////////////////////////////////////// */
+/*////////////// NAV ////////////////////*/
+/*////////////////////////////////////// */
+nav{
+    width: 20%;
+}
+
+form,
+#sortable{
+    width: 100%;
+    margin-left: 3%;
+
+}
+
+form label,
+form input,
+#button-search,
+#sortable li{
+    width: 100%;
+    margin-bottom: 2%;
+    text-align: center;
+    font-size: 150%;
+    font-weight: 600;
+
+}
+
+form label{
+    font-size: 200%;
+    font-weight: bold;
+    text-align: left;
+    /* margin-left: 3%; */
+}
+
+#sortable {
+    list-style-type: none; 
+    margin-left: 0%; 
+    /* padding: 3%;  */
+
+}
+html>body #sortable li { height: 1.5em; line-height: 1.2em; }
+.ui-state-highlight { height: 1.5em; line-height: 1.2em;}
