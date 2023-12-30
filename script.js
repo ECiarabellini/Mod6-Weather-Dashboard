@@ -10,9 +10,9 @@ var todayTemp = document.getElementById('today-temp');
 var todayWind = document.getElementById('today-wind');
 var todayHumidity = document.getElementById('today-humidity');
 var todayEmoji = document.getElementById('today-emoji');
-
 var coordinates = [47.6038321, -122.330062];
 // var coordinates = [];
+
 
 dateToday.textContent = dayjs().format('M/DD/YYYY');
 
@@ -57,8 +57,7 @@ function getWeather(city) {
             coordinates = [data[0]["lat"], data[0]["lon"]];  //latitude and longitude coordinates as an array
             console.log('coordinates1: ', coordinates);
         }
-        );
-
+        ) 
     console.log('coordinates2: ', coordinates);
     fiveDayForecastURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + coordinates[0] + '&lon=' + coordinates[1] + '&appid=' + APIkey + "&units=imperial";
     console.log('fiveDayForecastURL: ', fiveDayForecastURL);
@@ -89,8 +88,9 @@ function getWeather(city) {
             todayTemp.textContent = data["main"]["temp"];
             todayHumidity.textContent = data["main"]["humidity"];
             todayWind.textContent = data["wind"]["speed"];
-            todayEmoji.textContent = data['weather'][0]['main']; /////////////////////////////////////fill this in with proper emoji
-
+            let currentIcon = data['weather'][0]['icon']; 
+            var imgURL = 'http://openweathermap.org/img/wn/' + currentIcon +'@2x.png';
+            todayEmoji.src = imgURL;
 
 
         });
@@ -131,3 +131,4 @@ cardDates.forEach(function(cardDate, index) {
 ////////
 //-- need to figure out how to display high temp for each day (alternatively hardcode temp at certain time?? indexes vary based on when data is run). First temp of the day + index 4?? temp around noon?
 //-- need to resolve issue of long/lat coordinates not returning in time for 5-day forecast api call. Soemthing to do with async functions and await
+
