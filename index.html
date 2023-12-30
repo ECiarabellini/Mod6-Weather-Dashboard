@@ -10,31 +10,96 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <header><h1>Weather Dashboard</h1></header>
-    <nav>
-        <form action="GET">
-            <label for="search">Search for a city:</label>
-            <input type="search" name="search" id="search">
-            <button id="button-search">Search</button>
-        </form>
-        <hr>
-        <ul id="sortable">
-            <li class="ui-state-default">Item 1</li>
-            <li class="ui-state-default">Item 2</li>
-            <li class="ui-state-default">Item 3</li>
-            <li class="ui-state-default">Item 4</li>
-            <li class="ui-state-default">Item 5</li>
-            <li class="ui-state-default">Item 6</li>
-            <li class="ui-state-default">Item 7</li>
-        </ul>
-    </nav>   
+    <header><div id="title">Weather Dashboard</div></header>
     <main>
-        <div id="today"></div>
-        <div id="5-day"></div>
+        <nav>
+            <form>
+                <label for="search">Search for a city:</label>
+                <input type="search" name="search" id="search">
+                <button id="button-search">Search</button>
+            </form>
+            <hr>
+            <ul id="sortable">
+                <li class="ui-state-default">Item 1</li>
+                <li class="ui-state-default">Item 2</li>
+                <li class="ui-state-default">Item 3</li>
+                <li class="ui-state-default">Item 4</li>
+                <li class="ui-state-default">Item 5</li>
+                <li class="ui-state-default">Item 6</li>
+                <li class="ui-state-default">Item 7</li>
+                <li class="ui-state-default">Item 8</li>
+            </ul>
+        </nav>   
+        <section id="section-weather">
+            <div id="today">
+                <h1 id="selected-city-date"> <span id="selected-city">Seattle </span> (<span id="dateToday">xxxx</span>) <span id="today-emoji">⛅</span></h1>
+                <ul id="today-weather">
+                    <li class="temp"><span>Temp:&nbsp;</span><span id="today-temp">100</span>&deg;F</li>
+                    <li class="wind"><span>Wind:&nbsp;</span><span id="today-wind">8.43</span> MPH</li>
+                    <li class="humidity"><span>Humidity:&nbsp;</span><span id="today-humidity">44</span>%</li>
+                </ul>
+            </div>
+            <div id="five-days">
+                <h2>5-Day Forecast:</h2>
+                <div id="five-cards">
+                    <div id="t+1" class="weather-card">
+                        <div class="card-date">12/23/2023 </div>
+                        <div class = "five-weather-icon">⛅</div>
+                        <ul class="next-weather">
+                            <li class="temp"><span>Temp:&nbsp;</span>100&deg;F</li>
+                            <li class="wind"><span>Wind:&nbsp;</span>8.43 MPH</li>
+                            <li class="humidity"><span>Humidity:&nbsp;</span>44 %</li>
+                        </ul>
+                    </div>
+
+                    <div id="t+2" class="weather-card">
+                        <div class="card-date">12/23/2023 </div>
+                        <div class = "five-weather-icon">⛅</div>
+                        <ul class="next-weather">
+                            <li class="temp"><span>Temp:&nbsp;</span>100&deg;F</li>
+                            <li class="wind"><span>Wind:&nbsp;</span>8.43 MPH</li>
+                            <li class="humidity"><span>Humidity:&nbsp;</span>44 %</li>
+                        </ul>
+                    </div>
+
+                    <div id="t+3" class="weather-card">
+                        <div class="card-date">12/23/2023 </div>
+                        <div class = "five-weather-icon">⛅</div>
+                        <ul class="next-weather">
+                            <li class="temp"><span>Temp:&nbsp;</span>100&deg;F</li>
+                            <li class="wind"><span>Wind:&nbsp;</span>8.43 MPH</li>
+                            <li class="humidity"><span>Humidity:&nbsp;</span>44 %</li>
+                        </ul>
+                    </div>
+
+                    <div id="t+4" class="weather-card">
+                        <div class="card-date">12/23/2023 </div>
+                        <div class = "five-weather-icon">⛅</div>
+                        <ul class="next-weather">
+                            <li class="temp"><span>Temp:&nbsp;</span>100&deg;F</li>
+                            <li class="wind"><span>Wind:&nbsp;</span>8.43 MPH</li>
+                            <li class="humidity"><span>Humidity:&nbsp;</span>44 %</li>
+                        </ul>
+                    </div>
+
+                    <div id="t+5" class="weather-card">
+                        <div class="card-date">12/23/2023 </div>
+                        <div class = "five-weather-icon">⛅</div>
+                        <ul class="next-weather">
+                            <li class="temp"><span>Temp:&nbsp;</span>100&deg;F</li>
+                            <li class="wind"><span>Wind:&nbsp;</span>8.43 MPH</li>
+                            <li class="humidity"><span>Humidity:&nbsp;</span>44 %</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </main>
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="script.js"></script>
