@@ -11,8 +11,8 @@ var todayWind = document.getElementById('today-wind');
 var todayHumidity = document.getElementById('today-humidity');
 var todayEmoji = document.getElementById('today-emoji');
 //var coordinates = [47.6038321, -122.330062]; //Seattle coordinates for testing purposes
-var coordinates = [39.7392364, -104.984862]; //Denver coordinates for testing purposes
-//var coordinates = [];
+//var coordinates = [39.7392364, -104.984862]; //Denver coordinates for testing purposes
+var coordinates = [];
 let tZeroimg = document.querySelector("#tZero img");
 let tPlus1img = document.querySelector("#tPlus1 img");
 let tPlus2img = document.querySelector("#tPlus2 img");
@@ -38,7 +38,6 @@ let tPlus2humid = document.querySelector("#tPlus2 .humidity span");
 let tPlus3humid = document.querySelector("#tPlus3 .humidity span");
 let tPlus4humid = document.querySelector("#tPlus4 .humidity span");
 
-
 dateToday.textContent = dayjs().format('M/DD/YYYY');
 
 $( function() {
@@ -48,23 +47,6 @@ $( function() {
     $( "#sortable" ).disableSelection();
   } );
 
-
-// function getCoordinates(city){
-//     var geocodeURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + APIkey;
-//     fetch(geocodeURL)
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             seletedState.textContent = data[0]["state"];
-//             selectedCountry.textContent = data[0]["country"];
-//             console.log("lat: ", data[0]["lat"]);
-//             console.log("lon: ", data[0]["lon"]);
-//             coordinates = [data[0]["lat"], data[0]["lon"]];  //latitude and longitude coordinates as an array
-//         }
-        
-//         );
-// }
 
 function getWeather(city) {
     selectedCity.textContent = city;
@@ -78,10 +60,9 @@ function getWeather(city) {
             seletedState.textContent = data[0]["state"];
             selectedCountry.textContent = data[0]["country"];
             coordinates = [data[0]["lat"], data[0]["lon"]];  //latitude and longitude coordinates as an array
-        }
-        ) 
-    fiveDayForecastURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + coordinates[0] + '&lon=' + coordinates[1] + '&appid=' + APIkey + "&units=imperial";
-    fetch(fiveDayForecastURL)
+            fiveDayForecastURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + coordinates[0] + '&lon=' + coordinates[1] + '&appid=' + APIkey + "&units=imperial";
+            return fetch(fiveDayForecastURL);
+        }) 
         .then(function (response) {
             return response.json();
         })
@@ -151,6 +132,9 @@ function getWeather(city) {
                     }
                 }
             }            
+        })
+        .catch(function (error) {
+            console.error('Error:', error);
         });
 
 
