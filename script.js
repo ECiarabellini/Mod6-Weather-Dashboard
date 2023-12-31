@@ -1,7 +1,7 @@
 var APIkey = '1f80b8af2888d6e151496d24599cf0ad';
 var searchButton = document.getElementById('button-search');
 var selectedCity = document.getElementById('selected-city');
-var seletedState= document.getElementById('state');
+var selectedState= document.getElementById('state');
 var selectedCountry = document.getElementById('country');
 var dateToday = document.getElementById('dateToday');
 var inputCity = document.getElementById('search')
@@ -18,25 +18,23 @@ let tPlus1img = document.querySelector("#tPlus1 img");
 let tPlus2img = document.querySelector("#tPlus2 img");
 let tPlus3img = document.querySelector("#tPlus3 img");
 let tPlus4img = document.querySelector("#tPlus4 img");
-
 let tZerotemp = document.querySelector("#tZero .temp span");
 let tPlus1temp = document.querySelector("#tPlus1 .temp span");
 let tPlus2temp = document.querySelector("#tPlus2 .temp span");
 let tPlus3temp = document.querySelector("#tPlus3 .temp span");
 let tPlus4temp = document.querySelector("#tPlus4 .temp span");
-
 let tZerowind = document.querySelector("#tZero .wind span");
 let tPlus1wind = document.querySelector("#tPlus1 .wind span");
 let tPlus2wind = document.querySelector("#tPlus2 .wind span");
 let tPlus3wind = document.querySelector("#tPlus3 .wind span");
 let tPlus4wind = document.querySelector("#tPlus4 .wind span");
-
-
 let tZerohumid = document.querySelector("#tZero .humidity span");
 let tPlus1humid = document.querySelector("#tPlus1 .humidity span");
 let tPlus2humid = document.querySelector("#tPlus2 .humidity span");
 let tPlus3humid = document.querySelector("#tPlus3 .humidity span");
 let tPlus4humid = document.querySelector("#tPlus4 .humidity span");
+var searchHistoryList = document.getElementById('sortable');
+var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || []; //initialize an empty array if doesn't yet exist in local storage
 
 dateToday.textContent = dayjs().format('M/DD/YYYY');
 
@@ -47,17 +45,38 @@ $( function() {
     $( "#sortable" ).disableSelection();
   } );
 
+function updateSearchHistory(city) {
+    if (!searchHistory.includes(city)) {
+        searchHistory.push(city);
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        showSearchHistory();
+    }
+}
+
+function showSearchHistory(){
+    searchHistoryList.innerHTML = '';
+    searchHistory.forEach(function(city){
+        var listItem = document.createElement('li');
+        listItem.className = 'ui-state-default list-item';
+        listItem.className = 'list-item';
+        listItem.textContent = city;
+        searchHistoryList.appendChild(listItem);
+        listItem.addEventListener('click', function() {
+            console.log('city clicked:', city.textContent);
+            getWeather(city);
+        });
+    })
+}
 
 function getWeather(city) {
     selectedCity.textContent = city;
-    // getCoordinates(city);
     var geocodeURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + APIkey;
     fetch(geocodeURL)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-            seletedState.textContent = data[0]["state"];
+            selectedState.textContent = data[0]["state"];
             selectedCountry.textContent = data[0]["country"];
             coordinates = [data[0]["lat"], data[0]["lon"]];  //latitude and longitude coordinates as an array
             fiveDayForecastURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + coordinates[0] + '&lon=' + coordinates[1] + '&appid=' + APIkey + "&units=imperial";
@@ -132,9 +151,6 @@ function getWeather(city) {
                     }
                 }
             }            
-        })
-        .catch(function (error) {
-            console.error('Error:', error);
         });
 
 
@@ -156,20 +172,15 @@ function getWeather(city) {
         });
 }
 
-getWeather(selectedCity.textContent);
-
 searchButton.addEventListener('click', function(event) {
     event.preventDefault();
     console.log("inputCity.value: ", inputCity.value);
     getWeather(inputCity.value);
+    updateSearchHistory(inputCity.value);
 });
 
-listItem.forEach(function(city) {
-    city.addEventListener('click', function() {
-        console.log('city clicked:', city.textContent);
-        getWeather(city.textContent);
-    });
-});
+getWeather(selectedCity.textContent);
+showSearchHistory();
 
 //////////Set the 5-day forecast date fields//////////////////////
 var today = new Date();  // Get the current date
@@ -186,7 +197,4 @@ cardDates.forEach(function(cardDate, index) {
     cardDate.textContent = formattedDate;
 });
 
-////////
-//-- need to figure out how to display high temp for each day (alternatively hardcode temp at certain time?? indexes vary based on when data is run). First temp of the day + index 4?? temp around noon?
-//-- need to resolve issue of long/lat coordinates not returning in time for 5-day forecast api call. Soemthing to do with async functions and await
 
