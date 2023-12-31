@@ -92,44 +92,70 @@ function getWeather(city) {
         .then(function (data) {
             console.log("fiveDayForecast data: ", data);
             var todaysDate = new Date();
-            todaysDate.setHours(0); //set attributes to 0 to calculate days after correctly below
+            todaysDate.setHours(0); //set h/m/s to 0 to calculate date differnece correctly below
             todaysDate.setMinutes(0); 
             todaysDate.setSeconds(0); 
             console.log('todaysDate: ', todaysDate);
-            let highTemp = 0;
+            let highTempToday = 0;
+            let highTempT1 = 0;
+            let highTempT2 = 0;
+            let highTempT3 = 0;
+            let highTempT4 = 0;
             for (let n = 0; n < data.list.length; n++){
                 var formattedDate = new Date(data.list[n]['dt'] *1000); //convert unix timestamp to readible date in local time
                 var dateDiff = (formattedDate - todaysDate)/86400000;  ///converted to days. less than 1 is today; 1.x is tomorrow, 2.x is day 3, etc.
                 var temp = data.list[n]['main']['temp'];
+                var currentDayIcon = data.list[n]['weather'][0]['icon'];
+                var dayimgURL = 'http://openweathermap.org/img/wn/' + currentDayIcon +'@2x.png';
                 console.log('date', n, ': ', formattedDate,' _temp: ',temp, ' _wind:',data.list[n]['wind']['speed'],'_humid',data.list[n]['main']['humidity']);
-                console.log('highTemp: ', highTemp);
                 if (dateDiff < 1){
-                    if (highTemp < temp){
-                        highTemp = temp;
-                        console.log('temp ',temp);
-                        tZerotemp.textContent = highTemp;
+                    if (highTempToday < temp){
+                        highTempToday = temp;
+                        tZerotemp.textContent = highTempToday;
                         tZerowind.textContent = data.list[n]['wind']['speed'];
                         tZerohumid.textContent = data.list[n]['main']['humidity'];
-                        let currentDayIcon = data.list[n]['weather'][0]['icon'];
-                        console.log(currentDayIcon);
-                        var dayimgURL = 'http://openweathermap.org/img/wn/' + currentDayIcon +'@2x.png'; 
-                        console.log('dayimgURL ', dayimgURL);
                         tZeroimg.src = dayimgURL;
                     }
                 }
-                if (dateDiff < 2){
-                    if (highTemp < temp){
-                        highTemp = temp;
-                        console.log('temp ',temp);
-                        tZerotemp.textContent = highTemp;
-                        tZerowind.textContent = data.list[n]['wind']['speed'];
-                        tZerohumid.textContent = data.list[n]['main']['humidity'];
+                if (dateDiff >= 1 && dateDiff < 2){
+                    if (highTempT1 < temp){
+                        highTempT1 = temp;
+                        tPlus1temp.textContent = highTempT1;
+                        tPlus1wind.textContent = data.list[n]['wind']['speed'];
+                        tPlus1humid.textContent = data.list[n]['main']['humidity'];
+                        tPlus1img.src = dayimgURL;
+                    }
+                }
+                if (dateDiff >= 2 && dateDiff < 3){
+                    if (highTempT2 < temp){
+                        highTempT2 = temp;
+                        tPlus2temp.textContent = highTempT2;
+                        tPlus2wind.textContent = data.list[n]['wind']['speed'];
+                        tPlus2humid.textContent = data.list[n]['main']['humidity'];
+                        tPlus2img.src = dayimgURL;
+                    }
+                }
+                if (dateDiff >= 3 && dateDiff < 4){
+                    if (highTempT3 < temp){
+                        highTempT3 = temp;
+                        tPlus3temp.textContent = highTempT3;
+                        tPlus3wind.textContent = data.list[n]['wind']['speed'];
+                        tPlus3humid.textContent = data.list[n]['main']['humidity'];
+                        tPlus3img.src = dayimgURL;
+                    }
+                }
+                if (dateDiff >= 4 && dateDiff < 5){
+                    if (highTempT4 < temp){
+                        highTempT4 = temp;
+                        tPlus4temp.textContent = highTempT4;
+                        tPlus4wind.textContent = data.list[n]['wind']['speed'];
+                        tPlus4humid.textContent = data.list[n]['main']['humidity'];
+                        tPlus4img.src = dayimgURL;
                     }
                 }
             }
             // console.log('date0:', data.list[0]['dt_txt']); //in UTC
             
-
         });
 
 
