@@ -13,6 +13,8 @@ var todayEmoji = document.getElementById('today-emoji');
 //var coordinates = [47.6038321, -122.330062]; //Seattle coordinates for testing purposes
 //var coordinates = [39.7392364, -104.984862]; //Denver coordinates for testing purposes
 var coordinates = [];
+var errorSection = document.getElementById('section-error');
+var weatherSection = document.getElementById('section-weather');
 let tZeroimg = document.querySelector("#tZero img");
 let tPlus1img = document.querySelector("#tPlus1 img");
 let tPlus2img = document.querySelector("#tPlus2 img");
@@ -38,12 +40,14 @@ var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || []; //i
 
 dateToday.textContent = dayjs().format('M/DD/YYYY');
 
+///copied from jQuery sortable///
 $( function() {
     $( "#sortable" ).sortable({
       placeholder: "ui-state-highlight"
     });
     $( "#sortable" ).disableSelection();
   } );
+/////////////////////////////////
 
 function updateSearchHistory(city) {
     if (!searchHistory.includes(city)) {
@@ -62,7 +66,7 @@ function showSearchHistory(){
         listItem.textContent = city;
         searchHistoryList.appendChild(listItem);
         listItem.addEventListener('click', function() {
-            console.log('city clicked:', city.textContent);
+            resetPage();
             getWeather(city);
         });
     })
@@ -73,7 +77,13 @@ function getWeather(city) {
     var geocodeURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + APIkey;
     fetch(geocodeURL)
         .then(function (response) {
-            return response.json();
+            console.log(response.status);
+            if(response.status != 200){
+                console.log("error at geocode fetch!");
+                errorReceived();
+            } else{
+                return response.json();
+            }
         })
         .then(function (data) {
             selectedState.textContent = data[0]["state"];
@@ -83,7 +93,13 @@ function getWeather(city) {
             return fetch(fiveDayForecastURL);
         }) 
         .then(function (response) {
-            return response.json();
+            console.log(response.status);
+            if(response.status != 200){
+                console.log("error at fiveDayForecast fetch!");
+                errorReceived();
+            } else{
+                return response.json();
+            }
         })
         .then(function (data) {
             // console.log("fiveDayForecast data: ", data);
@@ -157,10 +173,15 @@ function getWeather(city) {
     var currentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIkey + "&units=imperial";
     fetch(currentWeatherURL)
         .then(function (response) {
-            return response.json();
+            console.log(response.status);
+            if(response.status != 200){
+                console.log("error at currentWeather fetch!");
+                errorReceived();
+            } else{
+                return response.json();
+            }
         })
         .then(function (data) {
-            // console.log("current data: ", data);
             todayTemp.textContent = data["main"]["temp"];            
             todayWind.textContent = data["wind"]["speed"];
             todayHumidity.textContent = data["main"]["humidity"];
@@ -174,7 +195,7 @@ function getWeather(city) {
 
 searchButton.addEventListener('click', function(event) {
     event.preventDefault();
-    console.log("inputCity.value: ", inputCity.value);
+    resetPage();
     getWeather(inputCity.value);
     updateSearchHistory(inputCity.value);
 });
@@ -198,3 +219,14 @@ cardDates.forEach(function(cardDate, index) {
 });
 
 
+function errorReceived(){
+    console.log("errorRecieved function here!")
+    errorSection.style.display = "block";
+    weatherSection.style.display = "none";
+};
+
+function resetPage(){
+    console.log("reset!")
+    errorSection.style.display = "none";
+    weatherSection.style.display = "block";
+};

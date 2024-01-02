@@ -156,3 +156,10 @@ html>body nav #sortable li,
 .five-weather-icon{
     font-size: 200%;
 }
+
+#section-error{
+    display: none;
+    font-size: 300%;
+    margin-left: 10%;
+    margin-top: 10%;
+}
