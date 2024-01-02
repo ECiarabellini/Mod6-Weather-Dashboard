@@ -77,7 +77,6 @@ function getWeather(city) {
     var geocodeURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + APIkey;
     fetch(geocodeURL)
         .then(function (response) {
-            console.log(response.status);
             if(response.status != 200){
                 console.log("error at geocode fetch!");
                 errorReceived();
@@ -166,7 +165,8 @@ function getWeather(city) {
                         tPlus4img.src = dayimgURL;
                     }
                 }
-            }            
+            }
+            inputCity.value = "";            
         });
 
 
@@ -220,13 +220,12 @@ cardDates.forEach(function(cardDate, index) {
 
 
 function errorReceived(){
-    console.log("errorRecieved function here!")
     errorSection.style.display = "block";
     weatherSection.style.display = "none";
 };
 
 function resetPage(){
-    console.log("reset!")
     errorSection.style.display = "none";
     weatherSection.style.display = "block";
+    
 };
