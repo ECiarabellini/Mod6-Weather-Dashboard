@@ -8,8 +8,8 @@ The purpose behind this weather dashboard was to gain further experience working
 Future enhancements to this site may include adding a map using Google Maps Javascript API, adding the a ability to select a specifiic state/country for typed city, and a adding button to clear the search results. Additionally, it would be helpful to make the landing page related to user's location rather than hard-coded to Seattle.
 
 ## Installation
-[GitHub Repo](https://github.com/ECiarabellini/Mod6-Weather-Dashboard)
-[GitHub Pages](https://eciarabellini.github.io/Mod6-Weather-Dashboard)
+- Repo: [GitHub Repo](https://github.com/ECiarabellini/Mod6-Weather-Dashboard)
+- Webpage: [GitHub Pages](https://eciarabellini.github.io/Mod6-Weather-Dashboard)
 
 ## Usage
 Search for a city name using the search box. The name of the city will then appear in the search history on the left. Click and drag to reorder the list. Click on a city name in history to view weather for that city. In the 5-day  forecast, the temperature presented is the high temperature expected for that day, and the weather emoji, wind, and humidity are for the time of that high temperature. Today's date in the 5-day forecast is the high temperature expected in the remainder of the current day.

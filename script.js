@@ -74,7 +74,7 @@ function showSearchHistory(){
 
 function getWeather(city) {
     selectedCity.textContent = city;
-    var geocodeURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + APIkey;
+    var geocodeURL = "https://api.openweathermap.org/geo/1.0/direct?q="+ city + "&limit=1&appid=" + APIkey;
     fetch(geocodeURL)
         .then(function (response) {
             if(response.status != 200){
@@ -88,7 +88,7 @@ function getWeather(city) {
             selectedState.textContent = data[0]["state"];
             selectedCountry.textContent = data[0]["country"];
             coordinates = [data[0]["lat"], data[0]["lon"]];  //latitude and longitude coordinates as an array
-            fiveDayForecastURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + coordinates[0] + '&lon=' + coordinates[1] + '&appid=' + APIkey + "&units=imperial";
+            fiveDayForecastURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + coordinates[0] + '&lon=' + coordinates[1] + '&appid=' + APIkey + "&units=imperial";
             return fetch(fiveDayForecastURL);
         }) 
         .then(function (response) {
@@ -118,7 +118,7 @@ function getWeather(city) {
                 var windSpeed = data.list[n]['wind']['speed'];
                 var humiditylevel = data.list[n]['main']['humidity'];
                 var currentDayIcon = data.list[n]['weather'][0]['icon'];
-                var dayimgURL = 'http://openweathermap.org/img/wn/' + currentDayIcon +'@2x.png';
+                var dayimgURL = 'https://openweathermap.org/img/wn/' + currentDayIcon +'@2x.png';
                 // console.log('date', n, ': ', formattedDate,' _temp: ',temp, ' _wind:',windSpeed,'_humid',humiditylevel); ////////////////helpful log of 5 day data
                 if (dateDiff < 1){
                     if (highTempToday < temp){
@@ -170,7 +170,7 @@ function getWeather(city) {
         });
 
 
-    var currentWeatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIkey + "&units=imperial";
+    var currentWeatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIkey + "&units=imperial";
     fetch(currentWeatherURL)
         .then(function (response) {
             console.log(response.status);
@@ -186,7 +186,7 @@ function getWeather(city) {
             todayWind.textContent = data["wind"]["speed"];
             todayHumidity.textContent = data["main"]["humidity"];
             let currentIcon = data['weather'][0]['icon']; 
-            var imgURL = 'http://openweathermap.org/img/wn/' + currentIcon +'@2x.png';
+            var imgURL = 'https://openweathermap.org/img/wn/' + currentIcon +'@2x.png';
             todayEmoji.src = imgURL;
 
 
